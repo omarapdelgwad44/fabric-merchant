@@ -25,7 +25,7 @@ Route::group([
 
         Route::get('/', function () {
             return view('pages.dashboard');
-        });
+        })->name('dashboard');
 
         Route::get('/inventory', InventoryManager::class);
         Route::get('/orders', OrderManager::class);

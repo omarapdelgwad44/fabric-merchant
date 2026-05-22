@@ -56,6 +56,10 @@
                 <span class="nav-icon">⌂</span>
                 <span class="nav-label" x-show="!sidebarCollapsed" x-transition>{{ __('Live Website') }}</span>
             </a>
+            <a href="{{ route('logout') }}" class="nav-item text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20">
+                <span class="nav-icon" style="color: inherit;">⎋</span>
+                <span class="nav-label" style="color: inherit;" x-show="!sidebarCollapsed" x-transition>{{ __('Logout') }}</span>
+            </a>
         </nav>
         <div class="sidebar-footer" x-show="!sidebarCollapsed" x-transition>
             <div class="sidebar-user">

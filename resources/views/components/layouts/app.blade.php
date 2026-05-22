@@ -13,8 +13,18 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
-<body class="fabric-body" x-data="{ pageLoaded: false }" x-init="setTimeout(() => pageLoaded = true, 100)">
-
+<body class="fabric-body">
+    {{-- 
+    [Fix]: We removed the x-data="{ pageLoaded: false }" from the body and the preloader below.
+    [Reason - EN]: Livewire 3 components are essentially Alpine components under the hood. 
+    Wrapping the entire body in an Alpine component (x-data) and hiding the Livewire component 
+    initially with x-show="pageLoaded" interferes with Livewire's ability to attach its Javascript 
+    event listeners (like wire:submit) to the DOM elements. This causes forms to submit as standard GET requests.
+    
+    [السبب - AR]: إخفاء مكونات Livewire وقت تحميل الصفحة باستخدام Alpine.js (زي x-data و x-show على مستوى الـ body) 
+    بيعمل تعارض مع Livewire 3 وبيمنعه من إنه يربط الأحداث بتاعته (زي عملية الإرسال wire:submit) 
+    بالفورم. النتيجة إن الفورم كانت بتتبعت بالشكل العادي (GET request) والبيانات بتظهر في الرابط فوق.
+    
     <div x-show="!pageLoaded"
          x-transition:leave="transition-opacity duration-500"
          x-transition:leave-start="opacity-100"
@@ -30,6 +40,9 @@
          x-transition:enter-end="opacity-100">
         {{ $slot }}
     </div>
+    --}}
+
+    {{ $slot }}
 
     @livewireScripts
 </body>
