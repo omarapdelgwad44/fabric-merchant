@@ -1,16 +1,19 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Livewire\SettingsManager;
+use App\Livewire\InquiryManager;
 use App\Livewire\InventoryManager;
 use App\Livewire\OrderManager;
-use App\Livewire\InquiryManager;
+use App\Livewire\SettingsManager;
+use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
-    'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
-], function() {
+    'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
+], function () {
+
+    // auth routes
+    require __DIR__.'/auth.php';
 
     // Landing Page
     Route::get('/', function () {
@@ -18,7 +21,8 @@ Route::group([
     });
 
     // Dashboard
-    Route::prefix('dashboard')->group(function () {
+    Route::middleware(['auth'])->prefix('dashboard')->group(function () {
+
         Route::get('/', function () {
             return view('pages.dashboard');
         });
